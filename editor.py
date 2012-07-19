@@ -1,4 +1,4 @@
-import os, sys
+import os, sys, json
 
 WEBUI_ROOT = os.path.dirname(os.path.realpath(__file__))[:-5]
 sys.path.append(WEBUI_ROOT)
@@ -15,19 +15,23 @@ class InfinoteEditor(object):
         buffer = Buffer([Segment(0, text)])
         operation = Insert(offset, buffer)
         request = DoRequest(0, self._state.vector, operation)
+        self._postCommand("insert", [0, str(request.vector), offset, text])
         executedRequest = self._state.execute(request)
   
     def _handleDelete(self, offset, text):
         buffer = self._state.buffer.slice(offset, offset + len(text))
         operation = Delete(offset, buffer)
         request = DoRequest(0, self._state.vector, operation)
+        self._postCommand("delete", [0, str(request.vector), offset, len(text)])
         executedRequest = self._state.execute(request)
         
     def _handleUndo(self, diffText):
         request = UndoRequest(self._localUser, self._state.vector)
         if self._state.canExecute(request):
             executedRequest = self._state.execute(request)
-            
+
+    def _postCommand(self, command, args):
+        print json.dumps([command, args])
             
     def sync(self, diffs):
         """ Takes a diff array and applies it to the buffer."""
