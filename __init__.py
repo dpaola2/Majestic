@@ -1,11 +1,11 @@
 import sublime, sublime_plugin, socket, json
 from diff_match_patch import diff_match_patch as dmp
-from editor import SubliminalEditor
+from editor import MajesticEditor
 
 class EasyPair(sublime_plugin.EventListener):
     def __init__(self):
         self.previous_text = ""
-        self.editor = SubliminalEditor()
+        self.editor = MajesticEditor()
         self.dmp = dmp()
         
     def on_modified(self, view):

@@ -4,7 +4,7 @@ WEBUI_ROOT = os.path.dirname(os.path.realpath(__file__))[:-5]
 sys.path.append(WEBUI_ROOT)
 from subliminal import *
 
-class SubliminalEditor(object):
+class MajesticEditor(object):
     def __init__(self):
         self._state = State()
 
