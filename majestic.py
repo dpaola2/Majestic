@@ -2,8 +2,7 @@ import sys
 import re
 
 
-class SubliminalEditor(object):
-    
+class MajesticEditor(object):
     def __init__(self):
         self.log = []
         self._state = State()
